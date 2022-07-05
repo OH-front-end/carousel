@@ -28,6 +28,17 @@
 non-essential styles:
 just for appearance; change whatever you want
 */
+.carousel {
+  margin: 1em;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1em;
+}
+
+.slides {
+  grid-column: 1/span 2;
+}
+
 .slide {
   font-size: 40px;
   padding: 40px;
@@ -55,4 +66,30 @@ just for appearance; change whatever you want
 
 .slide:nth-of-type(5) {
   background: purple;
+}
+
+.indicators,
+.controls {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1em;
+}
+
+.indicator,
+.control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: burlywood;
+  cursor: pointer;
 }
