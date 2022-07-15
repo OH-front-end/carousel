@@ -5,6 +5,9 @@ const pausePlayButton = document.querySelector('#pause_play-btn');
 const prevButton = document.querySelector('#prev-btn');
 const nextButton = document.querySelector('#next-btn');
 const SLIDES_LENGTH = slides.length;
+const ARROW_RIGHT = 'ArrowRight';
+const ARROW_LEFT = 'ArrowLeft';
+const ARROW_SPACE = 'Space';
 let currentSlide = 0;
 let interval = setInterval(nextSlide, 1000);
 let isPlay = true;
@@ -63,7 +66,14 @@ function nextHandler() {
   nextSlide();
 }
 
+function pressKey(e) {
+  if (e.code === ARROW_LEFT) prevHandler();
+  if (e.code === ARROW_RIGHT) nextHandler();
+  if (e.code === ARROW_SPACE) pausePlay();
+}
+
 prevButton.addEventListener('click', prevHandler);
 nextButton.addEventListener('click', nextHandler);
 pausePlayButton.addEventListener('click', pausePlay);
 indicatorContainer.addEventListener('click', indicate);
+document.addEventListener('keydown', pressKey);
