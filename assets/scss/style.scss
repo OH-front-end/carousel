@@ -77,4 +77,7 @@ just for appearance; change whatever you want
   height: 40px;
   background-color: burlywood;
   cursor: pointer;
+  &.active {
+    background-color: red;
+  }
 }

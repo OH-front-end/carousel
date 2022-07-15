@@ -93,3 +93,7 @@ just for appearance; change whatever you want
   background-color: burlywood;
   cursor: pointer;
 }
+.indicator.active,
+.control.active {
+  background-color: red;
+}

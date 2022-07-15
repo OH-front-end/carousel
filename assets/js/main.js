@@ -1,4 +1,5 @@
 const slides = document.querySelectorAll(".slide");
+const indicators = document.querySelectorAll(".indicator");
 const pausePlayButton = document.querySelector('#pause_play-btn');
 const prevButton = document.querySelector('#prev-btn');
 const nextButton = document.querySelector('#next-btn');
@@ -9,8 +10,10 @@ let isPlay = true;
 
 function goToNth(n) {
   slides[currentSlide].classList.toggle('active');
+  indicators[currentSlide].classList.toggle('active');
   currentSlide = (n + SLIDES_LENGTH) % SLIDES_LENGTH;
   slides[currentSlide].classList.toggle('active');
+  indicators[currentSlide].classList.toggle('active');
 }
 
 function prevSlide() {
