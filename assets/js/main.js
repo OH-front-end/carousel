@@ -1,4 +1,5 @@
 const slides = document.querySelectorAll(".slide");
+const indicatorContainer = document.querySelector("#indicators");
 const indicators = document.querySelectorAll(".indicator");
 const pausePlayButton = document.querySelector('#pause_play-btn');
 const prevButton = document.querySelector('#prev-btn');
@@ -45,6 +46,14 @@ function pausePlay() {
   }
 }
 
+function indicate(e) {
+  const target = e.target;
+  if (target.classList.contains('indicator')) {
+    pause();
+    goToNth(+target.getAttribute('data-slide-to'));
+  }
+}
+
 function prevHandler() {
   pause();
   prevSlide();
@@ -57,3 +66,4 @@ function nextHandler() {
 prevButton.addEventListener('click', prevHandler);
 nextButton.addEventListener('click', nextHandler);
 pausePlayButton.addEventListener('click', pausePlay);
+indicatorContainer.addEventListener('click', indicate);
