@@ -4,14 +4,23 @@ const prevButton = document.querySelector('#prev-btn');
 const nextButton = document.querySelector('#next-btn');
 const SLIDES_LENGTH = slides.length;
 let currentSlide = 0;
-let interval = setInterval(goToNth, 1000);
+let interval = setInterval(nextSlide, 1000);
 let isPlay = true;
 
-function goToNth() {
+function goToNth(n) {
   slides[currentSlide].classList.toggle('active');
-  currentSlide = (currentSlide + 1) % SLIDES_LENGTH;
+  currentSlide = (n + SLIDES_LENGTH) % SLIDES_LENGTH;
   slides[currentSlide].classList.toggle('active');
 }
+
+function prevSlide() {
+  goToNth(currentSlide - 1);
+}
+
+function nextSlide() {
+  goToNth(currentSlide + 1);
+}
+
 
 function pause() {
   clearInterval(interval);
@@ -20,7 +29,7 @@ function pause() {
 }
 
 function play() {
-  interval = setInterval(goToNth, 1000);
+  interval = setInterval(nextSlide, 1000);
   pausePlayButton.innerHTML = 'Pause';
   isPlay = true;
 }
@@ -33,5 +42,15 @@ function pausePlay() {
   }
 }
 
+function prevHandler() {
+  pause();
+  prevSlide();
+}
+function nextHandler() {
+  pause();
+  nextSlide();
+}
 
+prevButton.addEventListener('click', prevHandler);
+nextButton.addEventListener('click', nextHandler);
 pausePlayButton.addEventListener('click', pausePlay);
