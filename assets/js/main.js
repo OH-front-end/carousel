@@ -1,3 +1,4 @@
+const container = document.querySelector(".carousel");
 const slides = document.querySelectorAll(".slide");
 const indicatorContainer = document.querySelector("#indicators");
 const indicators = document.querySelectorAll(".indicator");
@@ -8,6 +9,8 @@ const SLIDES_LENGTH = slides.length;
 const ARROW_RIGHT = 'ArrowRight';
 const ARROW_LEFT = 'ArrowLeft';
 const ARROW_SPACE = 'Space';
+let swipeStartX = null;
+let swipeEndX = null;
 let currentSlide = 0;
 let interval = setInterval(nextSlide, 1000);
 let isPlay = true;
@@ -53,7 +56,7 @@ function indicate(e) {
   const target = e.target;
   if (target.classList.contains('indicator')) {
     pause();
-    goToNth(+target.getAttribute('data-slide-to'));
+    goToNth(+target.dataset.slideTo);
   }
 }
 
@@ -72,8 +75,20 @@ function pressKey(e) {
   if (e.code === ARROW_SPACE) pausePlay();
 }
 
+function swipeStart(e) {
+  swipeStartX = e.changedTouches[0].pageX;
+}
+
+function swipeEnd(e) {
+  swipeEndX = e.changedTouches[0].pageX;
+  if (swipeStartX - swipeEndX > 100) nextHandler();
+  if (swipeStartX - swipeEndX < -100) prevHandler();
+}
+
 prevButton.addEventListener('click', prevHandler);
 nextButton.addEventListener('click', nextHandler);
 pausePlayButton.addEventListener('click', pausePlay);
 indicatorContainer.addEventListener('click', indicate);
 document.addEventListener('keydown', pressKey);
+container.addEventListener('touchstart', swipeStart);
+container.addEventListener('touchend', swipeEnd);
