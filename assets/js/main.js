@@ -6,7 +6,7 @@
   const pausePlayButton = document.querySelector('#pause_play-btn');
   const prevButton = document.querySelector('#prev-btn');
   const nextButton = document.querySelector('#next-btn');
-
+  const reverseButton = document.querySelector('#reverse-btn');
   const SLIDES_LENGTH = slides.length;
   const ARROW_RIGHT = 'ArrowRight';
   const ARROW_LEFT = 'ArrowLeft';
@@ -19,6 +19,7 @@
   let currentSlide = 0;
   let interval = null;
   let isPlay = true;
+  let isReverse = true;
 
   function goToNth(n) {
     slides[currentSlide].classList.toggle('active');
@@ -57,6 +58,7 @@
     }
   }
 
+
   function indicate(e) {
     const target = e.target;
     if (target.classList.contains('indicator')) {
@@ -72,6 +74,32 @@
   function nextHandler() {
     pause();
     nextSlide();
+  }
+
+  function reverse() {
+    isReverse = false;
+    pause();
+    pausePlayButton.innerHTML = PAUSE_ICON;
+    reverseButton.innerHTML = '<i class="fa-solid fa-arrow-rotate-right"></i>';
+    interval = setInterval(prevSlide, 1000);
+  }
+
+  function forward() {
+    isReverse = true;
+    pause();
+    pausePlayButton.innerHTML = PAUSE_ICON;
+    reverseButton.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i>';
+    interval = setInterval(nextSlide, 1000);
+  }
+
+
+
+  function reverseForward() {
+    if (isReverse) {
+      reverse();
+    } else {
+      forward();
+    }
   }
 
   function pressKey(e) {
@@ -94,6 +122,7 @@
     prevButton.addEventListener('click', prevHandler);
     nextButton.addEventListener('click', nextHandler);
     pausePlayButton.addEventListener('click', pausePlay);
+    reverseButton.addEventListener('click', reverseForward);
     indicatorContainer.addEventListener('click', indicate);
     document.addEventListener('keydown', pressKey);
     container.addEventListener('touchstart', swipeStart);
